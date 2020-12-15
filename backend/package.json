@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "start": "nodemon ./src/server.ts"
+    "start": "nodemon ./src/server.ts",
+    "build": "tsc",
+    "ci:build": "docker build . -t gerilm/pepper-home-backend",
+    "ci:run": "docker run --rm --name peppr-backend -p 3000:3000 gerilm/pepper-home-backend:latest"
   },
   "author": "",
   "license": "ISC",
