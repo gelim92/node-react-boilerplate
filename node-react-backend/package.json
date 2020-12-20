@@ -1,5 +1,5 @@
 {
-  "name": "peppr-home-backend",
+  "name": "node-react-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,8 +7,8 @@
     "lint": "eslint .",
     "start": "nodemon ./src/server.ts",
     "build": "tsc",
-    "ci:build": "docker build . -t gerilm/pepper-home-backend",
-    "ci:run": "docker run --rm --name peppr-backend -p 3000:3000 gerilm/pepper-home-backend:latest"
+    "ci:build": "docker build . -t gerilm/node-react-backend",
+    "ci:run": "docker run --rm --name node-react-backend -p 3000:3000 gerilm/node-react-backend:latest"
   },
   "author": "",
   "license": "ISC",
