@@ -20,7 +20,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "ci:build": "docker build . -t gerilm/node-react-frontend",
+    "ci:run": "docker run --rm --name node-react-frontend -p 3000:3000 gerilm/node-react-frontend:latest"
   },
   "eslintConfig": {
     "extends": [

@@ -8,7 +8,7 @@
     "start": "nodemon ./src/server.ts",
     "build": "tsc",
     "ci:build": "docker build . -t gerilm/node-react-backend",
-    "ci:run": "docker run --rm --name node-react-backend -p 3000:3000 gerilm/node-react-backend:latest"
+    "ci:run": "docker run --rm --name node-react-backend -p 4000:4000 gerilm/node-react-backend:latest"
   },
   "author": "",
   "license": "ISC",

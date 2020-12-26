@@ -4,17 +4,22 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 COPY tsconfig*.json ./
-COPY ./src ./src
 
 RUN npm ci
+
+COPY . .
+
 RUN npm run build
 
+
 FROM node:12.18.3
+
+RUN npm install --global http-server
+
 WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm ci --only=production
-COPY --from=builder /usr/src/app/dist ./dist
 
-EXPOSE 4000
+COPY --from=builder /usr/src/app/build ./public
 
-CMD ["node", "./dist/server.js"]
+EXPOSE 3000
+
+CMD ["http-server", "-p", "3000"]

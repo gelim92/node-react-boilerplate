@@ -1,7 +1,7 @@
 import express from "express";
 
 const app = express();
-const port = 3000;
+const port = 4000;
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {
