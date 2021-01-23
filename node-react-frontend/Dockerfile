@@ -20,6 +20,6 @@ WORKDIR /usr/src/app
 
 COPY --from=builder /usr/src/app/build ./public
 
-EXPOSE 3000
+EXPOSE 4000
 
-CMD ["http-server", "-p", "3000"]
+CMD ["http-server", "-p", "4000"]

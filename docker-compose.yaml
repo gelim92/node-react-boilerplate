@@ -1,0 +1,47 @@
+version: "3.0"
+
+services:
+  traefik:
+    image: "traefik:v2.3.6"
+    command:
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --providers.docker=true
+      # Certbot
+      - --certificatesresolvers.le.acme.email=${LE_EMAIL}
+      - --certificatesresolvers.le.acme.storage=/acme.json
+      - --certificatesresolvers.le.acme.tlschallenge=true
+    ports:
+      - "80:80"
+      - "443:443"
+    labels:
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.redirs.entrypoints=web"
+      - "traefik.http.routers.redirs.middlewares=redirect-to-https"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+  frontend:
+    image: node-react-frontend
+    build:
+      context: ./node-react-frontend
+    ports:
+      - "4000:4000"
+    labels:
+      - "traefik.http.routers.frontend.rule=Host(`${FE_DOMAIN}`, `${FE_DOMAIN_2}`)"
+      - "traefik.http.services.frontend.loadbalancer.server.port=4000"
+      - "traefik.http.routers.frontend.tls.certresolver=le"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+  backend:
+    image: node-react-backend
+    build:
+      context: ./node-react-backend
+    environment:
+      - PORT=4100
+    ports:
+      - "4100:4100"
+    labels:
+      - "traefik.http.routers.backend.rule=Host(`${BE_DOMAIN}`)"
+      - "traefik.http.services.backend.loadbalancer.server.port=4100"
+      - "traefik.http.routers.backend.tls.certresolver=le"
+      - "traefik.http.routers.backend.entrypoints=websecure"
