@@ -9,7 +9,7 @@
     "build": "tsc && tscpaths -p tsconfig.json -s ./src -o ./dist",
     "postbuild": "cp ./src/swagger.yaml ./dist/swagger.yaml",
     "ci:build": "docker build . -t gerilm/node-react-backend",
-    "ci:run": "npm run ci:build && docker run --rm --name node-react-backend -p 4000:4000 gerilm/node-react-backend:latest"
+    "ci:run": "npm run ci:build && docker run --rm --init --name node-react-backend -p 4000:4000 gerilm/node-react-backend:latest"
   },
   "author": "",
   "license": "ISC",
